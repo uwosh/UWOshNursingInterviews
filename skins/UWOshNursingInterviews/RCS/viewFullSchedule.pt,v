@@ -1,0 +1,106 @@
+head	1.2;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.2
+date	2007.10.25.18.12.33;	author Kimtheman;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2007.10.25.17.58.07;	author Kimtheman;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@Changed table column heading
+@
+text
+@<html metal:use-macro="here/main_template/macros/master">
+  <head>
+    <title tal:content="template/title">The title</title>
+  </head>
+  <body tal:define="errors options/state/getErrors">
+
+<div metal:fill-slot="main">
+  <div tal:define="isManager here/hasManagePortalPermission" tal:condition="not:isAnon">
+    <div tal:condition="isManager">
+      <p>Here is the complete schedule:</p>
+
+	<table border="0">
+	  <th>Day</th><th>Time slot</th><th>Student</th>
+	  <tbody>
+	    <div tal:define="allDays here/getDays"
+		  tal:repeat="currentDay allDays">
+	      <tr>
+		<td tal:content="currentDay">[currentDay]</td>
+	      </tr>
+	      <div tal:define="alldayslots python:here.getSlotsForDay(currentDay);"
+		   tal:repeat="dayslot alldayslots">
+		<div tal:define="day python:dayslot['day'];
+				 slot python:dayslot['slot'];
+				 slotValue python:here.isSlotTaken(day, slot);
+				 slotLabels python:here.getSlotLabel(day, slot);
+				 slotLabel slotLabels/slot;
+				 dayLabel slotLabels/day;
+				 fullLabel slotLabels/full;
+				 ">
+		  <tr tal:condition="not:slotValue">
+		    <td/>
+		    <td><span tal:content="slotLabel">[slot]</span></td>
+		    <td/>
+		  </tr>
+		  <tr tal:condition="slotValue" bgcolor="#EEEEEE">
+		    <td/>
+		    <td><span tal:content="slotLabel">[slot]</span></td>
+
+		    <td align="center" 
+		        tal:define="userName python:slotValue.split(';;;;;;')[0];
+		                    email    python:slotValue.split(';;;;;;')[1];
+		                    fullName python:slotValue.split(';;;;;;')[2];">
+		      <span tal:content="structure string:${fullName} (<a href='mailto:$email'>$email</a>)">[full name and email]</span>
+		    </td>
+
+<!--                    <td tal:content="slotValue">[slotValue]</td>-->
+		  </tr>
+		  <tr tal:condition="repeat/dayslot/end"><td>&nbsp;</td></tr>
+		</div>
+	      </div>
+	    </div>
+	  </tbody>
+	</table>
+    </div>
+    
+    <div tal:condition="not:isManager">
+      You must be a Manager to view the full schedule.
+    </div>
+  </div>
+
+  <div tal:condition="isAnon">
+    You must be <a tal:attributes="href string:portal_url/login_form?came_from=portal_url/chooseTimeslot">logged in</a> and you must be a Manager to view the full schedule.
+  </div>
+</div>
+
+  </body>
+</html>
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d13 1
+a13 1
+	  <th>Day</th><th>Time slot</th><th>Choose one</th>
+@

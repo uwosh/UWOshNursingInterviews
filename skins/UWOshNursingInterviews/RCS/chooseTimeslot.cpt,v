@@ -1,0 +1,188 @@
+head	1.3;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.3
+date	2007.10.25.20.28.16;	author Kimtheman;	state Exp;
+branches;
+next	1.2;
+
+1.2
+date	2007.10.25.17.58.40;	author Kimtheman;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2007.10.23.20.11.02;	author Kimtheman;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.3
+log
+@Removed reference to 'teams'.
+@
+text
+@<html metal:use-macro="here/main_template/macros/master">
+  <head>
+    <title tal:content="template/title">The title</title>
+  </head>
+  <body tal:define="errors options/state/getErrors">
+
+<div metal:fill-slot="main">
+  <div tal:condition="not:isAnon">
+    <p tal:define="global previouslySelectedSlotLabels here/doesMemberHaveSlot|nothing" tal:condition="previouslySelectedSlotLabels">
+    <b>
+      You have already chosen a time slot (<span tal:replace="previouslySelectedSlotLabels/full">[previouslySelectedSlot]</span>).  
+      Proceed only if you want to choose a new time slot.
+    </b>
+  </p>
+  
+  <div>
+    <p>Choose an available time slot from the list below, then scroll to the bottom of the page and press the Submit button. </p>
+
+    <form method="POST" tal:attributes="action string:${here/absolute_url}/${template/id};"
+                         tal:define="errors options/state/getErrors">
+				     
+<!--       <p class="error_message" tal:define="err errors/n|nothing" tal:condition="err"><b tal:content="err" /></p> -->
+      <table border="0">
+        <th>Day</th><th>Time slot</th><th>Choose one</th>
+        <tbody>
+	  <div tal:define="allDays here/getDays"
+	        tal:repeat="currentDay allDays">
+	    <tr>
+	      <td tal:content="currentDay">[currentDay]</td>
+	    </tr>
+	    <div tal:define="alldayslots python:here.getSlotsForDay(currentDay);"
+	         tal:repeat="dayslot alldayslots">
+	      <div tal:define="day python:dayslot['day'];
+                               slot python:dayslot['slot'];
+                               taken python:here.isSlotTaken(day, slot);
+                               slotLabels python:here.getSlotLabel(day, slot);
+	                       slotLabel slotLabels/slot;
+	                       dayLabel slotLabels/day;
+		  	       fullLabel slotLabels/full;
+			       ">
+		<tr tal:condition="not:taken">
+		  <td/>
+		  <td><span tal:content="slotLabel">[slot]</span></td>
+		  <td align="center"><input tal:attributes="value fullLabel" name="slotSelection" type="radio" ></td>
+		</tr>
+		<tr tal:condition="taken" bgcolor="#EEEEEE">
+		  <td/>
+		  <td><span tal:content="slotLabel">[slot]</span></td>
+		  <td align="center" tal:define="isMySlot python:previouslySelectedSlotLabels and fullLabel == previouslySelectedSlotLabels['full']">
+		    <span tal:condition="isMySlot" tal:content="string:-> your slot <-"
+		    style="color:#FF0000;">
+		    [your slot]
+		    </span>
+		    <span tal:condition="not:isMySlot">
+		    [taken]
+		    </span>
+		  </td>
+		</tr>
+		<tr tal:condition="repeat/dayslot/end"><td>&nbsp;</td></tr>
+	      </div>
+	    </div>
+	  </div>
+        </tbody>
+      </table>
+      <p>
+	 <input type="submit" name="form.button.submit" value="Submit" />
+      </p>
+      <input type="hidden" name="form.submitted" value="1" />
+      <input tal:attributes="value member" type="hidden" name="memberToAssign" />
+    </form>
+  </div>
+  </div>
+
+  <div tal:condition="isAnon">
+    You must be <a tal:attributes="href string:portal_url/login_form?came_from=portal_url/chooseTimeslot">logged in</a> to choose a time slot.
+  </div>
+</div>
+
+  </body>
+</html>
+@
+
+
+1.2
+log
+@Made changes so handles Nursing's requirements.
+@
+text
+@d75 1
+a75 1
+    You must be <a tal:attributes="href string:portal_url/login_form?came_from=portal_url/chooseTimeslot">logged in</a> to choose a time slot for your team.
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d9 5
+a13 20
+  <div tal:define="global myTeams here/getMyTeams; global myTeam nothing">
+    You are a member of the following team(s):
+    <ul>
+    <div tal:repeat="team myTeams">
+      <div tal:define="teamBrains python:here.queryCatalog({'portal_type':'HomecomingTeam', 'Title':team}); 
+                       teamBrain python:teamBrains[0]; 
+                       teamObject teamBrain/getObject; 
+                       url teamObject/absolute_url; 
+                       link python:'<a href=' + url + '>' + team + '</a>';
+                       global myTeam team">
+        <li tal:content="structure link">[team]</li>
+      </div>
+    </div>
+    </ul>
+  </div>
+  <p tal:condition="python:len(myTeams)>1">Because you are a member of more than one team, only the last one shown above ('<b><span tal:replace="myTeam">[myTeam]</span></b>') is considered your primary team for the purposes of choosing a time slot.</p>
+  <p tal:condition="not:myTeam">Because you are not a member of any team, you cannot choose a time slot.  Return to the <a tal:attributes="href portal_url">home page</a> to create a team.</p>
+  
+  <p tal:define="global teamAlreadyHasSlot python:here.doesTeamHaveSlot(myTeam)" tal:condition="teamAlreadyHasSlot">
+    '<b><span tal:replace="myTeam">[myTeam]</span></b>' already has been assigned a slot (<span tal:replace="teamAlreadyHasSlot">[assignedSlot]</span>).  You cannot proceed.
+d16 2
+a17 2
+  <div tal:condition="python:myTeam and not teamAlreadyHasSlot">
+    <p>Please choose an available time slot for team '<b><span tal:replace="myTeam">[myTeam]</span></b>' from the list below.</p>
+d20 2
+a21 2
+                         tal:define="allslots here/getAllSlots;
+				     errors options/state/getErrors">
+d24 39
+a62 21
+        <th>Time slot</th><th>Choose one</th>
+        <tbody tal:repeat="slot allslots">
+          <div tal:define="taken python:here.isSlotTaken(slot)">
+            <tr tal:condition="not:taken">
+              <td><span tal:content="python:here.getSlotLabel(slot)">[slot]</span></td>
+              <td align="center"><input tal:attributes="value slot" name="slotSelection" type="radio" ></td>
+            </tr>
+            <tr tal:condition="taken" bgcolor="#EEEEEE">
+              <td><span tal:content="python:here.getSlotLabel(slot)">[slot]</span></td>
+              <td align="center" >
+		<span tal:define="teamBrains python:here.queryCatalog({'portal_type':'HomecomingTeam', 'Title':taken}); 
+                                  teamBrain python:teamBrains[0]; 
+				  teamObject teamBrain/getObject; 
+				  url teamObject/absolute_url; 
+				  link python:'<a href=' + url + '>' + taken + '</a>';"
+		       tal:replace="structure link">
+		  [taken]
+		</span>
+	      </td>
+            </tr>
+          </div>
+d69 1
+a69 1
+      <input tal:attributes="value myTeam" type="hidden" name="teamToAssign" />
+@

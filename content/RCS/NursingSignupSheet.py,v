@@ -1,0 +1,358 @@
+head	1.1;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.1
+date	2007.10.26.15.25.16;	author Kimtheman;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@# -*- coding: utf-8 -*-
+#
+# File: NursingSignupSheet.py
+#
+# Copyright (c) 2007 by []
+# Generator: ArchGenXML Version 1.5.2
+#            http://plone.org/products/archgenxml
+#
+# GNU General Public License (GPL)
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License
+# as published by the Free Software Foundation; either version 2
+# of the License, or (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the Free Software
+# Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+# 02110-1301, USA.
+#
+
+__author__ = """T. Kim Nguyen <nguyen@@uwosh.edu> <unknown>"""
+__docformat__ = 'plaintext'
+
+from AccessControl import ClassSecurityInfo
+from Products.Archetypes.atapi import *
+from Products.UWOshNursingInterviews.config import *
+
+##code-section module-header #fill in your manual code here
+##/code-section module-header
+
+copied_fields = {}
+copied_fields['title'] = BaseSchema['title'].copy()
+copied_fields['title'].widget.label = "Date"
+schema = Schema((
+
+    StringField(
+        name='timeslot1',
+        widget=StringWidget(
+            label="8:30 am - 8:45 am",
+            label_msgid='UWOshNursingInterviews_label_timeslot1',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot2',
+        widget=StringWidget(
+            label="8:45 am - 9:00 am",
+            label_msgid='UWOshNursingInterviews_label_timeslot2',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot3',
+        widget=StringWidget(
+            label="9:00 am - 9:15 am",
+            label_msgid='UWOshNursingInterviews_label_timeslot3',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot4',
+        widget=StringWidget(
+            label="9:15 am - 9:30 am",
+            label_msgid='UWOshNursingInterviews_label_timeslot4',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot5',
+        widget=StringWidget(
+            label="9:30 am - 9:45 am",
+            label_msgid='UWOshNursingInterviews_label_timeslot5',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot6',
+        widget=StringWidget(
+            label="9:45 am - 10:00 am",
+            label_msgid='UWOshNursingInterviews_label_timeslot6',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot7',
+        widget=StringWidget(
+            label="10:00 am - 10:15 am",
+            label_msgid='UWOshNursingInterviews_label_timeslot7',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot8',
+        widget=StringWidget(
+            label="10:15 am - 10:30 am",
+            label_msgid='UWOshNursingInterviews_label_timeslot8',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot9',
+        widget=StringWidget(
+            label="10:30 am - 10:45 am",
+            label_msgid='UWOshNursingInterviews_label_timeslot9',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot10',
+        widget=StringWidget(
+            label="10:45 am - 11:00 am",
+            label_msgid='UWOshNursingInterviews_label_timeslot10',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot11',
+        widget=StringWidget(
+            label="11:00 am - 11:15 am",
+            label_msgid='UWOshNursingInterviews_label_timeslot11',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot12',
+        widget=StringWidget(
+            label="11:15 am - 11:30 am",
+            label_msgid='UWOshNursingInterviews_label_timeslot12',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot13',
+        widget=StringWidget(
+            label="11:30 am - 11:45 am",
+            label_msgid='UWOshNursingInterviews_label_timeslot13',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot14',
+        widget=StringWidget(
+            label="11:45 am - 12:00 pm",
+            label_msgid='UWOshNursingInterviews_label_timeslot14',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot15',
+        widget=StringWidget(
+            label="12:00 pm - 12:15 pm",
+            label_msgid='UWOshNursingInterviews_label_timeslot15',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot16',
+        widget=StringWidget(
+            label="12:15 pm - 12:30 pm",
+            label_msgid='UWOshNursingInterviews_label_timeslot16',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot17',
+        widget=StringWidget(
+            label="12:30 pm - 12:45 pm",
+            label_msgid='UWOshNursingInterviews_label_timeslot17',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot18',
+        widget=StringWidget(
+            label="12:45 pm - 1:00 pm",
+            label_msgid='UWOshNursingInterviews_label_timeslot18',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot19',
+        widget=StringWidget(
+            label="1:00 pm - 1:15 pm",
+            label_msgid='UWOshNursingInterviews_label_timeslot19',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot20',
+        widget=StringWidget(
+            label="1:15 pm - 1:30 pm",
+            label_msgid='UWOshNursingInterviews_label_timeslot20',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot21',
+        widget=StringWidget(
+            label="1:30 pm - 1:45 pm",
+            label_msgid='UWOshNursingInterviews_label_timeslot21',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    StringField(
+        name='timeslot22',
+        widget=StringWidget(
+            label="1:45 pm - 2:00 pm",
+            label_msgid='UWOshNursingInterviews_label_timeslot22',
+            i18n_domain='UWOshNursingInterviews',
+        ),
+        read_permission="Manage portal",
+        searchable=1
+    ),
+
+    copied_fields['title'],
+    ),
+)
+
+##code-section after-local-schema #fill in your manual code here
+##/code-section after-local-schema
+
+NursingSignupSheet_schema = BaseSchema.copy() + \
+    schema.copy()
+
+##code-section after-schema #fill in your manual code here
+##/code-section after-schema
+
+class NursingSignupSheet(BaseContent):
+    """
+    """
+    security = ClassSecurityInfo()
+    __implements__ = (getattr(BaseContent,'__implements__',()),)
+
+    # This name appears in the 'add' box
+    archetype_name = 'Nursing Appointment Signup Sheet'
+
+    meta_type = 'NursingSignupSheet'
+    portal_type = 'NursingSignupSheet'
+    allowed_content_types = []
+    filter_content_types = 0
+    global_allow = 1
+    #content_icon = 'NursingSignupSheet.gif'
+    immediate_view = 'base_view'
+    default_view = 'base_view'
+    suppl_views = ()
+    typeDescription = "Nursing Appointment Signup Sheet"
+    typeDescMsgId = 'description_edit_nursingsignupsheet'
+
+    _at_rename_after_creation = True
+
+    schema = NursingSignupSheet_schema
+
+    ##code-section class-header #fill in your manual code here
+    ##/code-section class-header
+
+    # Methods
+
+
+registerType(NursingSignupSheet, PROJECTNAME)
+# end of class NursingSignupSheet
+
+##code-section module-footer #fill in your manual code here
+##/code-section module-footer
+
+
+
+@

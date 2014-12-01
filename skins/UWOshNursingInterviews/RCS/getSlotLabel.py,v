@@ -1,0 +1,63 @@
+head	1.2;
+access;
+symbols;
+locks; strict;
+comment	@# @;
+
+
+1.2
+date	2007.10.25.17.58.41;	author Kimtheman;	state Exp;
+branches;
+next	1.1;
+
+1.1
+date	2007.10.25.17.54.11;	author Kimtheman;	state Exp;
+branches;
+next	;
+
+
+desc
+@@
+
+
+1.2
+log
+@Made changes so handles Nursing's requirements.
+@
+text
+@## Script (Python) "getSlotLabel"
+##bind container=container
+##bind context=context
+##bind namespace=
+##bind script=script
+##bind subpath=traverse_subpath
+##parameters=day,slot
+##title=
+##
+signupSheetBrains = context.queryCatalog({'portal_type':'NursingSignupSheet', 'Title':day})
+if len(signupSheetBrains) == 0:
+  raise ValueError, 'No such signup sheet found for day %s' % day
+if len(signupSheetBrains) > 1:
+  raise ValueError, 'Too many signup sheets found (%s) for day %s' % (len(signupSheetBrains), day)
+signupSheetBrain = signupSheetBrains[0]
+signupSheet = signupSheetBrain.getObject()
+slotLabel = signupSheet.getField(slot).widget.label
+return {'full' : day + ' @@ ' + slotLabel, 'day':day, 'slot':slotLabel }
+@
+
+
+1.1
+log
+@Initial revision
+@
+text
+@d7 1
+a7 1
+##parameters=slot
+d10 5
+a14 1
+signupSheetBrains = context.queryCatalog({'portal_type':'HomecomingSignupSheet'})
+d17 2
+a18 1
+return signupSheet.getField(slot).widget.label
+@
